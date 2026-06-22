@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recent · Tulane Housing Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="recent">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="page-head">
+      <h1>Recent activity</h1>
+      <p>The latest reviews and sublets from the Tulane community. Search results land here.</p>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-mini">
+        <input id="q" type="text" placeholder="Search by landlord, building/address, or neighborhood&hellip;" />
+      </div>
+      <select id="type">
+        <option value="all">All types</option>
+        <option value="landlord">Landlord review</option>
+        <option value="property">Property review</option>
+        <option value="sublet">Sublet</option>
+      </select>
+      <select id="neighborhood"><option value="">All neighborhoods</option></select>
+      <select id="sort"><option value="recent">Most recent</option></select>
+    </div>
+
+    <div class="grid" id="recent-grid"></div>
+    <p class="empty" id="empty" hidden>Nothing matches your search yet.</p>
+
+    <div class="info-note">
+      <span class="i">i</span>
+      <span>Search from anywhere on the site lands here. Use the <strong>Post</strong> button to add a review or sublet — there&rsquo;s no separate post page.</span>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/seed.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cards.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/recent.js"></script>
+</body>
+</html>

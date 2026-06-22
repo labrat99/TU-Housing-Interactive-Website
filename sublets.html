@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sublets · Tulane Housing Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="sublets">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="page-head">
+      <h1>Sublets</h1>
+      <p>Student sublets near campus — browse summer and semester listings.</p>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-mini">
+        <input id="q" type="text" placeholder="Search by neighborhood or title&hellip;" />
+      </div>
+      <select id="price">
+        <option value="">Any price</option>
+        <option value="lt800">Under $800</option>
+        <option value="800to1200">$800–1200</option>
+        <option value="gt1200">Over $1200</option>
+      </select>
+      <select id="beds">
+        <option value="">Any beds</option>
+        <option value="studio">Studio</option>
+        <option value="1">1 bed</option>
+        <option value="2">2+ beds</option>
+      </select>
+      <select id="movein">
+        <option value="">Any move-in</option>
+        <option value="2026-05">Available May 2026</option>
+        <option value="2026-06">Available Jun 2026</option>
+        <option value="2026-07">Available Jul 2026</option>
+        <option value="2026-08">Available Aug 2026</option>
+      </select>
+      <select id="sort">
+        <option value="soon">Soonest move-in</option>
+        <option value="price">Price: low to high</option>
+      </select>
+    </div>
+
+    <div class="grid" id="sublets-grid"></div>
+    <p class="empty" id="empty" hidden>No sublets match your search.</p>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/seed.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cards.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/sublets.js"></script>
+</body>
+</html>

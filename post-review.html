@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post a review · Tulane Housing Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="post">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="form-page" id="formPage" hidden>
+      <h1>Post a review</h1>
+      <p class="sub">All fields required except photos.</p>
+
+      <div class="segmented" id="typeToggle">
+        <button type="button" id="toggleLandlord" class="active">Landlord</button>
+        <button type="button" id="toggleProperty">Property</button>
+      </div>
+
+      <form id="reviewForm" class="form-card" novalidate>
+        <div class="form-msg" id="msg"></div>
+
+        <div class="lf">
+          <div class="field">
+            <label for="landlordName">Landlord or management company</label>
+            <input id="landlordName" type="text" placeholder="e.g., Maple Street Rentals" />
+            <p class="help">Just type the name — add a new one if it&rsquo;s not listed.</p>
+          </div>
+          <div class="field">
+            <label for="landlordType">Type</label>
+            <select id="landlordType">
+              <option value="Private landlord">Private landlord</option>
+              <option value="Management company">Management company</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pf" hidden>
+          <div class="field">
+            <label for="propertyAddress">Address or building</label>
+            <input id="propertyAddress" type="text" placeholder="e.g., Maple Manor Apts / 1031 Maple St" />
+          </div>
+          <div class="field">
+            <label>When did you live here?</label>
+            <div class="year-range">
+              <select id="yearFrom"></select><span>–</span><select id="yearTo"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="neighborhood">Neighborhood</label>
+          <input id="neighborhood" type="text" placeholder="e.g., Carrollton, Uptown, Freret…" />
+        </div>
+
+        <div class="field">
+          <label>Overall rating</label>
+          <div class="star-input" id="starInput" role="radiogroup" aria-label="Overall rating">
+            <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="reviewText">Your review</label>
+          <textarea id="reviewText" rows="5" placeholder="What was your experience? Be specific and factual."></textarea>
+        </div>
+
+        <p class="anon-note"><span class="check">✓</span> Posted anonymously as &ldquo;Verified Tulane student.&rdquo;</p>
+        <button class="btn btn-primary btn-block" id="submitBtn" type="submit">Post review</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/post-review.js"></script>
+</body>
+</html>

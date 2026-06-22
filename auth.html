@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in / Sign up · Tulane Housing Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="auth">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="auth-wrap">
+      <div class="auth-logo">Logo<br>asset</div>
+      <div class="auth-card">
+        <span class="wordmark">Tulane Housing Hub</span>
+        <div class="auth-tabs">
+          <button id="tabLogin" type="button">Log in</button>
+          <button id="tabSignup" type="button" class="active">Sign up</button>
+        </div>
+
+        <div class="form-msg" id="msg"></div>
+
+        <form id="authForm" novalidate>
+          <div class="field" id="nameField">
+            <label for="name">Full name</label>
+            <input id="name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Tulane email</label>
+            <input id="email" type="email" autocomplete="email" placeholder="you@tulane.edu" />
+            <p class="help" id="emailHelp">Only @tulane.edu emails — we&rsquo;ll send a verification link.</p>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" autocomplete="new-password" />
+          </div>
+          <div class="field" id="confirmField">
+            <label for="confirm">Confirm password</label>
+            <input id="confirm" type="password" autocomplete="new-password" />
+          </div>
+          <p class="help" id="privacyHelp">Your name is never shown publicly on reviews.</p>
+          <button class="btn btn-primary btn-block" id="submitBtn" type="submit">Create account</button>
+        </form>
+
+        <p class="auth-switch" id="switchLine"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/auth-page.js"></script>
+</body>
+</html>

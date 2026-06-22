@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tulane Housing Hub</title>
+  <meta name="description" content="Real reviews and sublets, from Tulane students who've lived it." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="home">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="hero">
+      <h1>Find out what it&rsquo;s really like to live there</h1>
+      <p>Real reviews and sublets, from students who&rsquo;ve lived it.</p>
+      <form class="search" action="recent.html" method="get">
+        <input name="q" type="text" placeholder="Search by landlord, building/address, or neighborhood&hellip;" />
+        <button type="submit">Search</button>
+      </form>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Recent activity</h2>
+        <a href="recent.html">See all &rarr;</a>
+      </div>
+      <div class="grid" id="recent-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <!-- Firebase (no-build compat SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <!-- App -->
+  <script src="assets/js/seed.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cards.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+</html>
