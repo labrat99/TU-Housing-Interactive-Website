@@ -22,7 +22,7 @@
   byId('iVerified').addEventListener('click', function () {
     note('Checking…', 'success');
     Auth.reloadUser().then(function (u) {
-      if (u && u.emailVerified) showVerified();
+      if (u && u.emailVerified) { if (Auth.refreshToken) Auth.refreshToken(); showVerified(); }
       else note('Not verified yet — click the link in your email first, then try again.', 'error');
     }).catch(function () {
       note('Please log in again to check your status.', 'error');

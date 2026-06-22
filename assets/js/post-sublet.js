@@ -49,11 +49,14 @@
     if (!Auth.isVerified()) return showInfo('Almost there — please <a href="verify-email.html">verify your Tulane email</a> before posting.');
 
     var data = buildData(u);
+    if (!editId) data.created_at = firebase.firestore.FieldValue.serverTimestamp();
     submitBtn.disabled = true; submitBtn.textContent = editId ? 'Saving…' : 'Posting…';
-    var op;
-    if (editId) { op = window.fbDB.collection('sublets').doc(editId).update(data).then(function () { return { id: editId }; }); }
-    else { data.created_at = firebase.firestore.FieldValue.serverTimestamp(); op = window.fbDB.collection('sublets').add(data); }
-    op.then(function (ref) { location.href = 'sublet.html?id=' + (editId || ref.id); })
+    // refresh the verification token first so a just-verified user isn't blocked
+    Auth.refreshToken().then(function () {
+      return editId
+        ? window.fbDB.collection('sublets').doc(editId).update(data).then(function () { return { id: editId }; })
+        : window.fbDB.collection('sublets').add(data);
+    }).then(function (ref) { location.href = 'sublet.html?id=' + (editId || ref.id); })
       .catch(function (e2) {
         submitBtn.disabled = false; submitBtn.textContent = editId ? 'Save changes' : 'Post sublet';
         showError('Could not save: ' + ((e2 && e2.message) || 'please try again.'));

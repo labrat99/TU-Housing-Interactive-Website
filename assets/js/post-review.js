@@ -53,11 +53,14 @@
     if (!Auth.isVerified()) return showInfo('Almost there — please <a href="verify-email.html">verify your Tulane email</a> before posting.');
 
     var data = buildData(u);
+    if (!editId) data.created_at = firebase.firestore.FieldValue.serverTimestamp();
     submitBtn.disabled = true; submitBtn.textContent = editId ? 'Saving…' : 'Posting…';
-    var op;
-    if (editId) { op = window.fbDB.collection('reviews').doc(editId).update(data); }
-    else { data.created_at = firebase.firestore.FieldValue.serverTimestamp(); op = window.fbDB.collection('reviews').add(data); }
-    op.then(function () { location.href = editId ? 'account.html' : 'reviews.html'; })
+    // refresh the verification token first so a just-verified user isn't blocked
+    Auth.refreshToken().then(function () {
+      return editId
+        ? window.fbDB.collection('reviews').doc(editId).update(data)
+        : window.fbDB.collection('reviews').add(data);
+    }).then(function () { location.href = editId ? 'account.html' : 'reviews.html'; })
       .catch(function (e2) {
         submitBtn.disabled = false; submitBtn.textContent = editId ? 'Save changes' : 'Post review';
         showError('Could not save: ' + ((e2 && e2.message) || 'please try again.'));

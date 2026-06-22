@@ -51,9 +51,14 @@ window.Auth = (function () {
   function reloadUser() {
     return current ? current.reload().then(function () { return window.fbAuth.currentUser; }) : Promise.resolve(null);
   }
+  // Force-refresh the ID token so the email_verified claim (used by Firestore rules)
+  // is current. Without this, a just-verified user can be blocked from posting for up
+  // to an hour because their cached token still says email_verified: false.
+  function refreshToken() { return current ? current.getIdToken(true) : Promise.resolve(null); }
 
   return {
     isTulane: isTulane, onChange: onChange, onReady: onReady, user: user, isVerified: isVerified,
-    signUp: signUp, logIn: logIn, logOut: logOut, resendVerification: resendVerification, reloadUser: reloadUser
+    signUp: signUp, logIn: logIn, logOut: logOut, resendVerification: resendVerification,
+    reloadUser: reloadUser, refreshToken: refreshToken
   };
 })();
