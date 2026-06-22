@@ -1,6 +1,6 @@
 /* Shared header + footer, injected on every page (one source of truth).
-   Sets the active nav link, wires the Post dropdown, and reflects auth state:
-   Log in <-> Account, and Post items gate to verified users. */
+   Active nav link, Post dropdown (desktop), a collapsing menu (mobile), the logo,
+   the favicon, and auth-state reflection (Log in <-> Account, Post gating). */
 (function () {
   var page = document.body.dataset.page || '';
   function link(href, label, key) {
@@ -10,15 +10,16 @@
   var headerHTML =
     '<div class="topbar"><div class="wrap"><span>Anyone can browse — no account needed</span></div></div>'
     + '<header class="site-header"><div class="wrap">'
-    +   '<a class="brand" href="index.html"><span class="logo-ph">Logo<br>asset</span>'
-    +   '<span class="wordmark">Tulane Housing Hub</span></a>'
+    +   '<a class="brand" href="index.html">'
+    +     '<img class="logo-img" src="assets/img/logo.png" alt="Tulane Housing Hub logo" />'
+    +     '<span class="wordmark">Tulane Housing Hub</span></a>'
     +   '<nav class="nav">'
     +     link('recent.html', 'Recent', 'recent')
     +     link('reviews.html', 'Reviews', 'reviews')
     +     link('sublets.html', 'Sublets', 'sublets')
     +   '</nav>'
     +   '<div class="header-actions">'
-    +     '<a class="btn btn-outline" id="authAction" href="auth.html">Log in</a>'
+    +     '<a class="btn btn-outline js-auth-action" id="authAction" href="auth.html">Log in</a>'
     +     '<div class="post-menu">'
     +       '<button class="btn btn-primary" id="postBtn" type="button" aria-haspopup="true" aria-expanded="false">Post <span class="caret">▾</span></button>'
     +       '<div class="post-dropdown" id="postDropdown" hidden>'
@@ -27,8 +28,18 @@
     +         '<a class="post-item" data-target="post-sublet.html">Sublet</a>'
     +       '</div>'
     +     '</div>'
+    +     '<button class="menu-toggle" id="menuToggle" type="button" aria-label="Menu" aria-expanded="false">☰</button>'
     +   '</div>'
-    + '</div></header>';
+    + '</div></header>'
+    + '<div class="mobile-menu" id="mobileMenu">'
+    +   link('recent.html', 'Recent', 'recent')
+    +   link('reviews.html', 'Reviews', 'reviews')
+    +   link('sublets.html', 'Sublets', 'sublets')
+    +   '<div class="mm-divider"></div>'
+    +   '<a class="js-auth-action" id="mAuthAction" href="auth.html">Log in</a>'
+    +   '<a class="post-item" data-target="post-review.html?type=landlord">Post a review</a>'
+    +   '<a class="post-item" data-target="post-sublet.html">Post a sublet</a>'
+    + '</div>';
 
   var footerHTML =
     '<div class="wrap"><span>Tulane Housing Hub</span>'
@@ -37,7 +48,12 @@
   var h = document.getElementById('site-header'); if (h) h.innerHTML = headerHTML;
   var f = document.getElementById('site-footer'); if (f) f.innerHTML = footerHTML;
 
-  // Post dropdown open/close
+  // favicon on every page
+  var fav = document.createElement('link');
+  fav.rel = 'icon'; fav.type = 'image/png'; fav.href = 'assets/img/logo.png';
+  document.head.appendChild(fav);
+
+  // Post dropdown (desktop)
   var btn = document.getElementById('postBtn');
   var dd = document.getElementById('postDropdown');
   if (btn && dd) {
@@ -51,13 +67,28 @@
     });
   }
 
-  // Reflect auth state: Log in <-> Account, and route Post items appropriately.
+  // Mobile menu (hamburger)
+  var mt = document.getElementById('menuToggle');
+  var mm = document.getElementById('mobileMenu');
+  if (mt && mm) {
+    mt.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = mm.classList.toggle('open');
+      mt.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mm.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', function () {
+      if (mm.classList.contains('open')) { mm.classList.remove('open'); mt.setAttribute('aria-expanded', 'false'); }
+    });
+  }
+
+  // Reflect auth state across desktop + mobile controls
   function applyAuth(u) {
-    var a = document.getElementById('authAction');
-    if (a) {
-      if (u) { a.textContent = 'Account'; a.setAttribute('href', 'account.html'); }
-      else { a.textContent = 'Log in'; a.setAttribute('href', 'auth.html'); }
-    }
+    var label = u ? 'Account' : 'Log in';
+    var href = u ? 'account.html' : 'auth.html';
+    Array.prototype.forEach.call(document.querySelectorAll('.js-auth-action'), function (a) {
+      a.textContent = label; a.setAttribute('href', href);
+    });
     var verified = !!(u && u.emailVerified);
     Array.prototype.forEach.call(document.querySelectorAll('.post-item'), function (el) {
       var t = el.getAttribute('data-target');

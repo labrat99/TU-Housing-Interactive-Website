@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post a sublet · Tulane Housing Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="post">
+  <div id="site-header"></div>
+
+  <main>
+    <div class="form-page" id="formPage" hidden>
+      <h1>Post a sublet</h1>
+      <p class="sub">All fields required.</p>
+
+      <form id="subletForm" class="form-card" novalidate>
+        <div class="form-msg" id="msg"></div>
+
+        <div class="field">
+          <label for="title">Sublet title</label>
+          <input id="title" type="text" placeholder="e.g., 1BR near campus — May–Aug" />
+        </div>
+        <div class="field">
+          <label for="neighborhood">Neighborhood</label>
+          <input id="neighborhood" type="text" placeholder="e.g., Carrollton, Uptown, Freret…" />
+        </div>
+
+        <div class="row2">
+          <div class="field"><label for="moveIn">Move-in date</label><input id="moveIn" type="date" /></div>
+          <div class="field"><label for="endDate">End date</label><input id="endDate" type="date" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="price">Monthly price ($)</label><input id="price" type="number" min="0" placeholder="850" /></div>
+          <div class="field"><label for="beds">Beds / baths</label><input id="beds" type="text" placeholder="e.g., 1 bd / 1 ba, Studio" /></div>
+        </div>
+
+        <div class="field">
+          <label for="description">About the place</label>
+          <textarea id="description" rows="4" placeholder="Describe the space, what's included, and anything a subletter should know."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Contact method</label>
+          <div class="segmented" id="contactToggle">
+            <button type="button" id="toggleEmail" class="active">Email</button>
+            <button type="button" id="togglePhone">Phone</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="contactValue" id="contactLabel">Contact email</label>
+          <input id="contactValue" type="email" placeholder="you@tulane.edu" />
+        </div>
+
+        <p class="anon-note"><span class="check">✓</span> Posted as a Verified Tulane student. Your contact info shows on the listing.</p>
+        <button class="btn btn-primary btn-block" id="submitBtn" type="submit">Post sublet</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/post-sublet.js"></script>
+</body>
+</html>
