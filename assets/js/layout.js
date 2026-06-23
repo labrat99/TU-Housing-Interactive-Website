@@ -8,8 +8,7 @@
   }
 
   var headerHTML =
-    '<div class="topbar"><div class="wrap"><span>Anyone can browse — no account needed</span></div></div>'
-    + '<header class="site-header"><div class="wrap">'
+    '<header class="site-header"><div class="container">'
     +   '<a class="brand" href="index.html">'
     +     '<img class="logo-img" src="assets/img/logo.png" alt="Tulane Housing Hub logo" />'
     +     '<span class="wordmark">Tulane Housing Hub</span></a>'
@@ -42,7 +41,7 @@
     + '</div>';
 
   var footerHTML =
-    '<div class="wrap"><span>Tulane Housing Hub</span>'
+    '<div class="container"><span>Tulane Housing Hub</span>'
     + '<span>Built by Tulane students · DATA 2150</span></div>';
 
   var h = document.getElementById('site-header'); if (h) h.innerHTML = headerHTML;
