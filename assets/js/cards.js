@@ -25,11 +25,21 @@ window.Cards = (function () {
       + '<div class="card-foot"><span class="verified"><span class="check">✓</span>Verified Tulane student</span></div>'
       + '</article>';
   }
-  // Use a real uploaded photo if present; otherwise a stable, clean random stock
-  // photo per listing (deterministic seed so each listing keeps the same image).
+  // Curated real house/apartment photos (Unsplash). Each listing gets a stable one
+  // chosen by a hash of its id, so different listings show different photos.
+  var HOUSE_PHOTOS = [
+    '1502672260266-1c1ef2d93688', '1512917774080-9991f1c4c750', '1568605114967-8130f3a36994',
+    '1570129477492-45c003edd2be', '1580587771525-78b9dba3b914', '1493809842364-78817add7ffb',
+    '1522708323590-d24dbb6b0267', '1484154218962-a197022b5858', '1505691938895-1758d7feb511',
+    '1560448204-e02f11c3d0e2', '1502005229762-cf1b2da7c5d6', '1545324418-cc1a3fa10c00',
+    '1486304873000-235643847519', '1564013799919-ab600027ffc6', '1560185007-cde436f6a4d0'
+  ];
   function subletPhoto(s) {
     if (s.photo_urls && s.photo_urls.length) return s.photo_urls[0];
-    return 'https://picsum.photos/seed/' + encodeURIComponent('hub-' + (s.id || s.title || 'sublet')) + '/640/420';
+    var key = String(s.id || s.title || 'sublet'), h = 0;
+    for (var i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+    var id = HOUSE_PHOTOS[h % HOUSE_PHOTOS.length];
+    return 'https://images.unsplash.com/photo-' + id + '?w=640&h=420&fit=crop&q=70&auto=format';
   }
   function sublet(s) {
     return '<a class="card card-link" href="sublet.html?id=' + encodeURIComponent(s.id) + '">'
