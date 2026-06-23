@@ -21,7 +21,7 @@
     root.innerHTML =
       '<a class="back-link" href="sublets.html">&larr; Back to sublets</a>'
       + '<article class="detail">'
-      + '<div class="hero-thumb">▦</div>'
+      + '<div class="hero-thumb" style="background-image:url(\'' + Cards.subletPhoto(s) + '\')"></div>'
       + '<div class="body">'
       + '<span class="tag sublet">Sublet</span>'
       + '<h1>' + s.title + '</h1>'

@@ -25,14 +25,20 @@ window.Cards = (function () {
       + '<div class="card-foot"><span class="verified"><span class="check">✓</span>Verified Tulane student</span></div>'
       + '</article>';
   }
+  // Use a real uploaded photo if present; otherwise a stable, clean random stock
+  // photo per listing (deterministic seed so each listing keeps the same image).
+  function subletPhoto(s) {
+    if (s.photo_urls && s.photo_urls.length) return s.photo_urls[0];
+    return 'https://picsum.photos/seed/' + encodeURIComponent('hub-' + (s.id || s.title || 'sublet')) + '/640/420';
+  }
   function sublet(s) {
     return '<a class="card card-link" href="sublet.html?id=' + encodeURIComponent(s.id) + '">'
-      + '<div class="thumb">▦</div>'
+      + '<div class="thumb" style="background-image:url(\'' + subletPhoto(s) + '\')"></div>'
       + '<div class="card-top"><span class="tag sublet">Sublet</span></div>'
       + '<h3>' + s.title + '</h3>'
       + '<p class="price-line">$' + s.price + '/mo · ' + s.neighborhood + ' · ' + s.beds_baths + '</p>'
       + '<p class="date-line">' + fmtDate(s.move_in) + ' – ' + fmtDate(s.end_date) + '</p>'
       + '</a>';
   }
-  return { stars: stars, fmtDate: fmtDate, review: review, sublet: sublet };
+  return { stars: stars, fmtDate: fmtDate, review: review, sublet: sublet, subletPhoto: subletPhoto };
 })();
