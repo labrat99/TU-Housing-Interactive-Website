@@ -17,6 +17,11 @@
       <h1>Post a review</h1>
       <p class="sub">All fields required except photos.</p>
 
+      <div class="legal-notice" role="alert">
+        <span class="legal-icon" aria-hidden="true">⚠</span>
+        <p><strong>Keep it factual.</strong> False or defamatory claims about a named landlord are a legal liability, and will result in your post being removed.</p>
+      </div>
+
       <div class="segmented" id="typeToggle">
         <button type="button" id="toggleLandlord" class="active">Landlord</button>
         <button type="button" id="toggleProperty">Property</button>
@@ -88,6 +93,7 @@
   <script src="assets/js/firebase-config.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/layout.js"></script>
+  <script src="assets/js/moderation.js"></script>
   <script src="assets/js/post-review.js"></script>
 </body>
 </html>

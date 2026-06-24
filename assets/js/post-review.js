@@ -35,6 +35,10 @@
     if (type === 'landlord' && !byId('landlordName').value.trim()) return 'Please enter the landlord or company name.';
     if (type === 'property' && !byId('propertyName').value.trim()) return 'Please enter the property or building name.';
     if (type === 'property' && !byId('propertyAddress').value.trim()) return 'Please enter the street address.';
+    if (window.Moderation && Moderation.check(byId('reviewText').value, byId('neighborhood').value,
+        byId('landlordName').value, byId('propertyName').value, byId('propertyAddress').value)) {
+      return 'Your review contains language that isn’t allowed. Please remove it and try again.';
+    }
     return null;
   }
   function buildData(u) {

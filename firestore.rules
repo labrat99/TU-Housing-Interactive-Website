@@ -34,8 +34,12 @@ service cloud.firestore {
       allow update, delete: if request.auth != null && ownsExisting();
     }
 
+    // Profiles hold a user's real name + email, so they are private: only the
+    // owner can read their own profile. (Nothing in the app reads other users'
+    // profiles — reviews/sublets are shown anonymously.) This keeps the
+    // "anonymous" promise true at the data layer, not just in the UI.
     match /profiles/{uid} {
-      allow read: if true;
+      allow read: if request.auth != null && request.auth.uid == uid;
       allow write: if request.auth != null && request.auth.uid == uid;
     }
   }
