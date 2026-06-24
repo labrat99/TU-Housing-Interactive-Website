@@ -224,6 +224,7 @@ a{color:inherit;text-decoration:none}
   border-radius:12px;padding:14px 16px;margin:6px 0 18px}
 .account-strip .verified{font-weight:600}
 .acct-email{color:var(--stone);font-size:14px}
+#logoutBtn{margin-left:auto}
 .verified-badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
   color:var(--teal);background:var(--lightblue);border-radius:999px;padding:5px 12px}
 .verify-panel{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:0 0 18px}

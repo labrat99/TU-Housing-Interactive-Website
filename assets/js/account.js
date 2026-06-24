@@ -116,6 +116,11 @@
     byId('acctEmail').textContent = u.email || '';
     byId('accountPage').hidden = false;
     setupVerification(u);
+    byId('logoutBtn').addEventListener('click', function () {
+      byId('logoutBtn').disabled = true;
+      Auth.logOut().then(function () { location.href = 'index.html'; })
+        .catch(function () { byId('logoutBtn').disabled = false; });
+    });
     byId('tabReviews').addEventListener('click', function () { setTab('reviews'); });
     byId('tabSublets').addEventListener('click', function () { setTab('sublets'); });
     byId('acctList').innerHTML = '<p class="empty">Loading your posts…</p>';
