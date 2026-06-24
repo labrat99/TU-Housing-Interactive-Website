@@ -48,6 +48,7 @@
     if (!p || p <= 0) return 'Please enter a monthly price.';
     if (!byId('beds').value.trim()) return 'Please enter beds / baths.';
     if (!byId('description').value.trim()) return 'Please describe the place.';
+    if (byId('description').value.trim().length < 40) return 'Please add a bit more detail — at least a sentence or two.';
     if (!byId('contactValue').value.trim()) return 'Please add your contact ' + (contactMethod === 'email' ? 'email' : 'phone') + '.';
     return null;
   }

@@ -30,8 +30,10 @@
     if (!rating) return 'Please choose a star rating.';
     if (!byId('neighborhood').value.trim()) return 'Please enter a neighborhood.';
     if (!byId('reviewText').value.trim()) return 'Please write your review.';
+    if (byId('reviewText').value.trim().length < 40) return 'Please add a bit more detail — at least a sentence or two.';
     if (type === 'landlord' && !byId('landlordName').value.trim()) return 'Please enter the landlord or company name.';
-    if (type === 'property' && !byId('propertyAddress').value.trim()) return 'Please enter the address or building.';
+    if (type === 'property' && !byId('propertyName').value.trim()) return 'Please enter the property or building name.';
+    if (type === 'property' && !byId('propertyAddress').value.trim()) return 'Please enter the street address.';
     return null;
   }
   function buildData(u) {
@@ -41,7 +43,7 @@
       user_id: u.uid, public_attribution: 'Verified Tulane student'
     };
     if (type === 'landlord') { data.subject = byId('landlordName').value.trim(); data.landlord_type = byId('landlordType').value; }
-    else { data.subject = byId('propertyAddress').value.trim(); data.property_address = ''; data.lived_window = byId('yearFrom').value + '–' + byId('yearTo').value; }
+    else { data.subject = byId('propertyName').value.trim(); data.property_address = byId('propertyAddress').value.trim(); data.lived_window = byId('yearFrom').value + '–' + byId('yearTo').value; }
     return data;
   }
 
@@ -88,7 +90,8 @@
           byId('landlordName').value = d.subject || '';
           byId('landlordType').value = d.landlord_type || 'Private landlord';
         } else {
-          byId('propertyAddress').value = d.subject || '';
+          byId('propertyName').value = d.subject || '';
+          byId('propertyAddress').value = d.property_address || '';
           if (d.lived_window) { var yr = d.lived_window.split('–'); if (yr[0]) byId('yearFrom').value = yr[0].trim(); if (yr[1]) byId('yearTo').value = yr[1].trim(); }
         }
         byId('neighborhood').value = d.neighborhood || '';
