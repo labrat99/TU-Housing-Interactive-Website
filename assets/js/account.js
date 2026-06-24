@@ -68,10 +68,54 @@
     render();
   }
 
+  // Verification is no longer a gate — it only earns the "Verified" badge.
+  // Show the badge when verified, otherwise show the resend panel.
+  function applyVerifyState(u) {
+    var verified = !!(u && u.emailVerified);
+    byId('verifiedBadge').hidden = !verified;
+    byId('verifyPanel').hidden = verified;
+  }
+  function setupVerification(u) {
+    applyVerifyState(u);
+    if (/[?&]welcome=1/.test(location.search)) {
+      var w = byId('welcomeMsg');
+      w.className = 'form-msg success';
+      w.innerHTML = 'Account created! We sent a verification link to <strong>' + (u.email || 'your Tulane email')
+        + '</strong>. You can start posting right away — verifying just adds a badge to your posts.';
+    }
+    var resendBtn = byId('resendBtn'), resendMsg = byId('resendMsg');
+    resendBtn.addEventListener('click', function () {
+      resendBtn.disabled = true;
+      resendMsg.className = 'form-msg'; resendMsg.textContent = '';
+      Auth.resendVerification().then(function () {
+        resendMsg.className = 'form-msg success';
+        resendMsg.textContent = 'Sent! Check your inbox, your spam folder, and the Tulane quarantine digest. It can take a few minutes.';
+        setTimeout(function () { resendBtn.disabled = false; }, 8000);
+      }).catch(function (err) {
+        resendMsg.className = 'form-msg error';
+        resendMsg.textContent = (err && err.code === 'auth/too-many-requests')
+          ? 'You’ve requested this a few times — please wait a minute, then try again.'
+          : 'Couldn’t send right now — please try again in a moment.';
+        resendBtn.disabled = false;
+      });
+    });
+    byId('refreshVerify').addEventListener('click', function () {
+      var b = byId('refreshVerify'); b.disabled = true; b.textContent = 'Checking…';
+      Auth.reloadUser().then(function (fresh) {
+        var u2 = fresh || Auth.user() || u;
+        applyVerifyState(u2);
+        if (u2 && u2.emailVerified) { if (Auth.refreshToken) Auth.refreshToken(); }
+        else { resendMsg.className = 'form-msg error'; resendMsg.textContent = 'Not verified yet — click the link in your email first, then refresh.'; }
+        b.disabled = false; b.textContent = 'I’ve verified — refresh';
+      }).catch(function () { b.disabled = false; b.textContent = 'I’ve verified — refresh'; });
+    });
+  }
+
   function load(u) {
     uid = u.uid;
     byId('acctEmail').textContent = u.email || '';
     byId('accountPage').hidden = false;
+    setupVerification(u);
     byId('tabReviews').addEventListener('click', function () { setTab('reviews'); });
     byId('tabSublets').addEventListener('click', function () { setTab('sublets'); });
     byId('acctList').innerHTML = '<p class="empty">Loading your posts…</p>';

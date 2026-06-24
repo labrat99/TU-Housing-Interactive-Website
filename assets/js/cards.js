@@ -22,7 +22,9 @@ window.Cards = (function () {
       + '<h3>' + r.subject + '</h3>'
       + '<p class="muted">' + sub + '</p>'
       + '<p class="snippet">' + r.text + '</p>'
-      + '<div class="card-foot"><span class="verified"><span class="check">✓</span>Verified Tulane student</span></div>'
+      + '<div class="card-foot">' + (r.verified === false
+          ? '<span class="poster">Tulane student</span>'
+          : '<span class="verified"><span class="check">✓</span>Verified Tulane student</span>') + '</div>'
       + '</article>';
   }
   // Curated real house/apartment photos (Unsplash). Each listing gets a stable one

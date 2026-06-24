@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// Tulane Housing Hub — Firestore security rules.
+//
+// Email verification is NOT required to read or write. Any signed-in account
+// with a @tulane.edu email may post; the app stores each author's verification
+// status as a `verified` field so it can show a "Verified" badge. This keeps
+// posting from being blocked when a Tulane verification email is delayed or
+// caught in the email quarantine.
+//
+// Paste this into Firebase console → Firestore Database → Rules → Publish.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // A signed-in user whose email is on the tulane.edu domain.
+    function isTulane() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.email.matches('.*@tulane[.]edu$');
+    }
+    function ownsNew()      { return request.resource.data.user_id == request.auth.uid; }
+    function ownsExisting() { return resource.data.user_id == request.auth.uid; }
+
+    match /reviews/{id} {
+      allow read: if true;
+      allow create: if isTulane() && ownsNew();
+      allow update, delete: if request.auth != null && ownsExisting();
+    }
+
+    match /sublets/{id} {
+      allow read: if true;
+      allow create: if isTulane() && ownsNew();
+      allow update, delete: if request.auth != null && ownsExisting();
+    }
+
+    match /profiles/{uid} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

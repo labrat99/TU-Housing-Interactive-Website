@@ -1,7 +1,8 @@
 /* Post a sublet (WF-08), also handles editing (?id=<docId>), with an OPTIONAL photo.
-   Gated: logged in to view, verified to submit. Writes to Firestore 'sublets'.
+   Gated: logged in to view; any signed-in Tulane user can submit. The author's
+   verification status is saved as `verified` so listings can show a badge.
    If a photo is chosen, it uploads to Firebase Storage under sublets/ and is saved
-   as imageUrl on the document. Posting works fine with no photo. */
+   as imageUrl on the document. Posting works fine with no photo. Writes to 'sublets'. */
 (function () {
   function byId(id) { return document.getElementById(id); }
   var editId = (location.search.match(/[?&]id=([^&]+)/) || [])[1] || null;
@@ -60,7 +61,8 @@
       move_in: byId('moveIn').value, end_date: byId('endDate').value,
       price: parseInt(byId('price').value, 10), beds_baths: byId('beds').value.trim(),
       description: byId('description').value.trim(), contact_method: contactMethod,
-      contact_value: byId('contactValue').value.trim(), user_id: u.uid
+      contact_value: byId('contactValue').value.trim(), user_id: u.uid,
+      verified: !!u.emailVerified
     };
   }
   // Upload the chosen photo (if any) to Storage; resolves to a download URL or null.
@@ -77,7 +79,6 @@
     msg.className = 'form-msg'; msg.textContent = '';
     var err = validate();
     if (err) return showError(err);
-    if (!Auth.isVerified()) return showInfo('Almost there — please <a href="verify-email.html">verify your Tulane email</a> before posting.');
 
     var data = buildData(u);
     if (!editId) data.created_at = firebase.firestore.FieldValue.serverTimestamp();

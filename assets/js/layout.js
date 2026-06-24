@@ -88,10 +88,11 @@
     Array.prototype.forEach.call(document.querySelectorAll('.js-auth-action'), function (a) {
       a.textContent = label; a.setAttribute('href', href);
     });
-    var verified = !!(u && u.emailVerified);
+    // Verification is no longer required to post — any signed-in user goes
+    // straight to the form; only logged-out users are routed to sign in.
     Array.prototype.forEach.call(document.querySelectorAll('.post-item'), function (el) {
       var t = el.getAttribute('data-target');
-      el.setAttribute('href', verified ? t : (u ? 'verify-email.html' : 'auth.html?next=' + encodeURIComponent(t)));
+      el.setAttribute('href', u ? t : 'auth.html?next=' + encodeURIComponent(t));
     });
   }
   applyAuth(null);

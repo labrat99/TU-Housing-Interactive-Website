@@ -20,8 +20,21 @@
       </div>
 
       <div class="account-strip">
-        <span class="verified"><span class="check">✓</span> Verified Tulane student</span>
+        <span class="verified-badge" id="verifiedBadge" hidden><span class="check">✓</span> Verified Tulane student</span>
         <span class="acct-email" id="acctEmail"></span>
+      </div>
+
+      <div class="form-msg" id="welcomeMsg"></div>
+
+      <div class="verify-panel" id="verifyPanel" hidden>
+        <h2>Verify your Tulane email</h2>
+        <p class="lead">You can browse and post right now. Verifying your email adds a “Verified” badge to your posts.</p>
+        <div class="verify-buttons">
+          <button class="btn btn-outline" id="resendBtn" type="button">Resend verification email</button>
+          <button class="refresh-link" id="refreshVerify" type="button">I’ve verified — refresh</button>
+        </div>
+        <p class="form-msg" id="resendMsg"></p>
+        <p class="verify-note">The email can take a few minutes to arrive and may land in your spam folder or the Tulane email quarantine. If it doesn’t show up, you can release it from the quarantine digest Tulane sends you.</p>
       </div>
 
       <div class="segmented" id="acctTabs">

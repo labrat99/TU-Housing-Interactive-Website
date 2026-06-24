@@ -28,7 +28,9 @@
       + '<p class="price">$' + s.price + ' <span class="per">/ month</span></p>'
       + '<p class="meta">' + s.neighborhood + ' · ' + s.beds_baths
       + ' · Available ' + Cards.fmtDate(s.move_in) + ' – ' + Cards.fmtDate(s.end_date) + '</p>'
-      + '<span class="attribution"><span class="check">✓</span> Posted by a Verified Tulane student</span>'
+      + (s.verified === false
+          ? '<span class="attribution plain">Posted by a Tulane student</span>'
+          : '<span class="attribution"><span class="check">✓</span> Posted by a Verified Tulane student</span>')
       + '<h2>About the place</h2>'
       + '<p class="desc">' + s.description + '</p>'
       + '<div class="contact-box"><p class="label">' + contactLabel + '</p><p class="value">' + s.contact_value + '</p></div>'

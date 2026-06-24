@@ -60,7 +60,9 @@
       if (pw !== fConfirm.value) return showError('Passwords don’t match.');
       setLoading(true);
       Auth.signUp(name, email, pw)
-        .then(function () { location.href = 'verify-email.html?email=' + encodeURIComponent(email); })
+        // Sent into the site right away (not blocked). The account page shows a
+        // welcome note + the resend-verification panel. Verification adds a badge.
+        .then(function () { location.href = 'account.html?welcome=1'; })
         .catch(function (err) { setLoading(false); showError(friendly(err)); });
     } else {
       if (!email || !pw) return showError('Enter your email and password.');

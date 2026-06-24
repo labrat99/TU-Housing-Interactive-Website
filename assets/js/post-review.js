@@ -1,5 +1,6 @@
 /* Post a review (WF-07), also handles editing an existing review (?id=<docId>).
-   Gated: logged in to view, verified to submit. Writes to Firestore 'reviews'. */
+   Gated: logged in to view; any signed-in Tulane user can submit. The author's
+   verification status is saved as `verified` so cards can show a badge. Writes to 'reviews'. */
 (function () {
   function byId(id) { return document.getElementById(id); }
   var type = (location.search.match(/[?&]type=(landlord|property)/) || [])[1] || 'landlord';
@@ -37,10 +38,12 @@
     return null;
   }
   function buildData(u) {
+    var verified = !!u.emailVerified;
     var data = {
       review_type: type, neighborhood: byId('neighborhood').value.trim(),
       rating: rating, text: byId('reviewText').value.trim(),
-      user_id: u.uid, public_attribution: 'Verified Tulane student'
+      user_id: u.uid, verified: verified,
+      public_attribution: verified ? 'Verified Tulane student' : 'Tulane student'
     };
     if (type === 'landlord') { data.subject = byId('landlordName').value.trim(); data.landlord_type = byId('landlordType').value; }
     else { data.subject = byId('propertyName').value.trim(); data.property_address = byId('propertyAddress').value.trim(); data.lived_window = byId('yearFrom').value + '–' + byId('yearTo').value; }
@@ -52,7 +55,6 @@
     msg.className = 'form-msg'; msg.textContent = '';
     var err = validate();
     if (err) return showError(err);
-    if (!Auth.isVerified()) return showInfo('Almost there — please <a href="verify-email.html">verify your Tulane email</a> before posting.');
 
     var data = buildData(u);
     if (!editId) data.created_at = firebase.firestore.FieldValue.serverTimestamp();
