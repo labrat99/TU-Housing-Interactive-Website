@@ -4,7 +4,9 @@ rules_version = '2';
 //
 // Email verification is NOT required to upload. Any signed-in @tulane.edu
 // account may upload a sublet photo. Uploads are capped at 5MB and limited to
-// JPG / PNG / WebP, matching the client-side check in post-sublet.js.
+// JPG / PNG / WebP, matching the client-side check in post-sublet.js. Owners may
+// delete their own photos — files are named <uid>_<timestamp>_<rand>.<ext>, so
+// the filename starts with the uploader's uid.
 //
 // Paste this into Firebase console → Storage → Rules → Publish.
 
@@ -20,9 +22,12 @@ service firebase.storage {
     // Sublet listing photos: sublets/<uid>_<timestamp>_<rand>.<ext>
     match /sublets/{file} {
       allow read: if true;
-      allow write: if isTulane()
+      // create/update carry a file, so we can enforce size + type here.
+      allow create, update: if isTulane()
         && request.resource.size < 5 * 1024 * 1024
         && request.resource.contentType.matches('image/(jpeg|png|webp)');
+      // delete has no request.resource — allow the owner (filename starts with their uid).
+      allow delete: if request.auth != null && file.matches('^' + request.auth.uid + '_.*');
     }
   }
 }
