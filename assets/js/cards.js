@@ -44,7 +44,7 @@ window.Cards = (function () {
   }
   function sublet(s) {
     return '<a class="card card-link" href="sublet.html?id=' + encodeURIComponent(s.id) + '">'
-      + '<div class="thumb" style="background-image:url(\'' + subletPhoto(s) + '\')"></div>'
+      + '<div class="thumb"><img src="' + subletPhoto(s) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'" /></div>'
       + '<div class="card-top"><span class="tag sublet">Sublet</span></div>'
       + '<h3>' + s.title + '</h3>'
       + '<p class="price-line">$' + s.price + '/mo · ' + s.neighborhood + ' · ' + s.beds_baths + '</p>'

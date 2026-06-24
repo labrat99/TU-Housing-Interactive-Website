@@ -80,8 +80,9 @@ a{color:inherit;text-decoration:none}
 .verified{font-size:12.5px;color:var(--teal);font-weight:500;display:inline-flex;align-items:center;gap:6px}
 .check{width:15px;height:15px;border-radius:50%;background:var(--teal);color:#fff;
   display:inline-flex;align-items:center;justify-content:center;font-size:9px}
-.thumb{height:128px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border);
-  background-color:#ece5d4;background-size:cover;background-position:center}
+.thumb{height:160px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border);
+  background-color:#ece5d4;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .price-line{font-weight:600;font-size:15px;margin:2px 0 3px;color:var(--ink)}
 .date-line{color:var(--stone);font-size:13px}
 

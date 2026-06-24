@@ -27,7 +27,9 @@
     selectedFile = null;
     byId('photoPreview').hidden = true;
     if (!f) return;
-    if (['image/jpeg', 'image/png', 'image/webp'].indexOf(f.type) === -1) {
+    var typeOk = ['image/jpeg', 'image/png', 'image/webp'].indexOf(f.type) !== -1
+      || (!f.type && /\.(jpe?g|png|webp)$/i.test(f.name || ''));
+    if (!typeOk) {
       showError('Please choose a JPG, PNG, or WebP image.'); input.value = ''; return;
     }
     if (f.size > 5 * 1024 * 1024) {
