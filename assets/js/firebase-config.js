@@ -14,6 +14,7 @@ try {
   firebase.initializeApp(firebaseConfig);
   window.fbAuth = firebase.auth();
   window.fbDB = firebase.firestore();
+  window.fbStorage = (typeof firebase.storage === 'function') ? firebase.storage() : null;
   window.FIREBASE_READY = true;
   console.log('[hub] Firebase initialized for project', firebaseConfig.projectId);
 } catch (e) {

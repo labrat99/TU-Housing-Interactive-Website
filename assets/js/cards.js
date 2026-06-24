@@ -35,6 +35,7 @@ window.Cards = (function () {
     '1486304873000-235643847519', '1564013799919-ab600027ffc6', '1560185007-cde436f6a4d0'
   ];
   function subletPhoto(s) {
+    if (s.imageUrl) return s.imageUrl;
     if (s.photo_urls && s.photo_urls.length) return s.photo_urls[0];
     var key = String(s.id || s.title || 'sublet'), h = 0;
     for (var i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;

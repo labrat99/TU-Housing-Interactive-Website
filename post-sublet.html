@@ -44,6 +44,13 @@
         </div>
 
         <div class="field">
+          <label for="photo">Add a photo (optional)</label>
+          <input id="photo" type="file" accept="image/jpeg,image/png,image/webp" />
+          <p class="help">JPG, PNG, or WebP &mdash; up to 5MB.</p>
+          <div class="photo-preview" id="photoPreview" hidden><img id="photoPreviewImg" alt="Photo preview" /></div>
+        </div>
+
+        <div class="field">
           <label>Contact method</label>
           <div class="segmented" id="contactToggle">
             <button type="button" id="toggleEmail" class="active">Email</button>
@@ -66,6 +73,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
   <script src="assets/js/firebase-config.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/layout.js"></script>
